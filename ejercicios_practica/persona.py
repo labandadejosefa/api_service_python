@@ -54,6 +54,27 @@ def report(limit=0, offset=0):
     return json_result_list
 
 
+def dashboard():
+    # Implementar una función en persona.py llamada "dashboard"
+        # Lo que desea es realizar un gráfico de linea con las edades
+        # de todas las personas en la base de datos
+
+        # Para eso, su función "dashboard" debe devolver dos valores:
+        # - El primer valor que debe devolver es "x", que debe ser
+        # los Ids de todas las personas en su base de datos
+        # - El segundo valor que debe devolver es "y", que deben ser
+        # todas las edades respectivas a los Ids que se encuentran en "x"
+    x = []
+    y = []
+
+    query = db.session.query(Persona)
+
+    for elemento in query:
+        x.append(elemento.id)
+        y.append(elemento.age)
+
+    return x,y
+
 if __name__ == "__main__":
     print("Test del modulo heart.py")
 
@@ -72,6 +93,19 @@ if __name__ == "__main__":
 
     # Aquí se puede ensayar todo lo que necesitemos con nuestra DB
     # ...
+
+    cant_ingresos = int(input("Cantidad de personas a ingresar: "))
+
+    for i in range(cant_ingresos):
+        name1= input(f'Nombre de {i+1}º persona a ingresar a la tabla:\n')
+        age1 = int(input(f'Edad de la {i+1}º persona:\n'))
+
+        ingreso = insert(name1, age1)
+    
+
+    mostrar = report()
+    print(mostrar)
+
 
     db.session.remove()
     db.drop_all()
